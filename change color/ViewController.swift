@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -27,9 +28,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
+        let player = AVPlayer()
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let fileUrl = Bundle.main.url(forResource: "shallow-sing-along-lady-gaga-and-bradley-cooper-netflix", withExtension: "mp3")!
+        let playerItem = AVPlayerItem(url: fileUrl)
+                player.replaceCurrentItem(with: playerItem)
+                player.volume = 1
+                player.play()
+        
+        //設定漸層
+        let gradientView = UIView(frame: CGRect(x: 0, y: 0, width: 393, height: 852))
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = gradientView.bounds
+        gradientLayer.colors = [CGColor(red: 34/255, green: 1/255, blue: 134/255, alpha: 1),CGColor(red: 0, green: 0, blue: 0, alpha: 1)]
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        
+    
     }
+    
 
     @IBAction func preButton(_ sender: Any) {
         index = (index + pisc.count - 1) % pisc.count
